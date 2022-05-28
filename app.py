@@ -6,9 +6,9 @@ import json
 
 # Find your Account SID and Auth Token at twilio.com/console
 # and set the environment variables. See http://twil.io/secure
-account_sid = '<TWILIO SID>'
-auth_token = '<TWILIO AUTH TOKEN>'
-#client = Client(account_sid, auth_token)
+account_sid = 'AC705c0140161dcf44f53e96e40fc492cc'
+auth_token = 'e3cb4c9dd7b1f2a80f26a3e24779ebd6'
+client = Client(account_sid, auth_token)
 
 
 app = Flask(__name__)
@@ -17,8 +17,8 @@ queue = []
 
 @app.route('/', methods=['POST', 'GET'])
 def request_handler():
-	print("Sending Twilio SMS for Mined transaction if webhook received!")
 	if request.method == 'POST':
+		print("Received a notification from the webhook!")
 		data = (request.json)
 		# if len(data['event']['activity'])==1:
 		# 	timestamp = data['createdAt']
@@ -38,11 +38,11 @@ def request_handler():
 
 
 		print("DATA: ", data)
-		#print("HASH: ", hash)
 
 
-		#message = client.messages.create(body=" \n\n TX MINED! \n\n From: " + from_address + " \n\n To: " + to_address + " \n\n @#:" + blockNum + " \n Check tx: https://rinkeby.etherscan.io/tx/" +hash ,from_='+14415267244', to='+14154230071')
-		#print(message.sid)
+		message = client.messages.create(body='Gas prices have dropped below 50 Gwei!' ,from_='+18149956820', to='+918439860325')
+
+		print(message.sid)
 
 
 	return ("Server is up!")

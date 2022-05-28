@@ -45,7 +45,7 @@ def request_handler():
 		#print(message.sid)
 
 
-	return ("Hello world")
+	return ("Server is up!")
 
 def run():
 	app.run(host='0.0.0.0', port=5000)

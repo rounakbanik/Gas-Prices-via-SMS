@@ -1,21 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
-from flask import Flask
-from flask import request
+from flask import Flask, request
 from twilio.rest import Client
-import json, time
-import requests
-from websocket import create_connection
-import os
-import pickle
-
-from twilio.rest import Client
+import json
 
 # Find your Account SID and Auth Token at twilio.com/console
 # and set the environment variables. See http://twil.io/secure
 account_sid = '<TWILIO SID>'
 auth_token = '<TWILIO AUTH TOKEN>'
-client = Client(account_sid, auth_token)
+#client = Client(account_sid, auth_token)
 
 
 app = Flask(__name__)
@@ -23,38 +16,36 @@ app.debug = True
 queue = []
 
 @app.route('/', methods=['POST', 'GET'])
-
 def request_handler():
 	print("Sending Twilio SMS for Mined transaction if webhook received!")
 	if request.method == 'POST':
 		data = (request.json)
-		if len(data['event']['activity'])==1:
-			timestamp = data['createdAt']
-			from_address = data['event']['activity'][0]['fromAddress']
-			to_address = data['event']['activity'][0]['toAddress']
-			blockNum =  data['event']['activity'][0]['blockNum']
-			hash =  data['event']['activity'][0]['hash']
+		# if len(data['event']['activity'])==1:
+		# 	timestamp = data['createdAt']
+		# 	from_address = data['event']['activity'][0]['fromAddress']
+		# 	to_address = data['event']['activity'][0]['toAddress']
+		# 	blockNum =  data['event']['activity'][0]['blockNum']
+		# 	hash =  data['event']['activity'][0]['hash']
 
 
-		else:
-			for i in range(len(data['event']['activity'])):
-				timestamp = data['createdAt']
-				from_address = data['event']['activity'][i]['fromAddress']
-				to_address = data['event']['activity'][i]['toAddress']
-				blockNum =  data['event']['activity'][i]['blockNum']
-				hash =  data['event']['activity'][i]['hash']
+		# else:
+		# 	for i in range(len(data['event']['activity'])):
+		# 		timestamp = data['createdAt']
+		# 		from_address = data['event']['activity'][i]['fromAddress']
+		# 		to_address = data['event']['activity'][i]['toAddress']
+		# 		blockNum =  data['event']['activity'][i]['blockNum']
+		# 		hash =  data['event']['activity'][i]['hash']
 
 
 		print("DATA: ", data)
-		print("HASH: ", hash)
+		#print("HASH: ", hash)
 
 
-		message = client.messages.create(body=" \n\n TX MINED! \n\n From: " + from_address + " \n\n To: " + to_address + " \n\n @#:" + blockNum + " \n Check tx: https://rinkeby.etherscan.io/tx/" +hash ,from_='+14415267244', to='+14154230071')
-		print(message.sid)
+		#message = client.messages.create(body=" \n\n TX MINED! \n\n From: " + from_address + " \n\n To: " + to_address + " \n\n @#:" + blockNum + " \n Check tx: https://rinkeby.etherscan.io/tx/" +hash ,from_='+14415267244', to='+14154230071')
+		#print(message.sid)
 
 
-	return ("Ok")
-	#return webhook(session), 200
+	return ("Hello world")
 
 def run():
 	app.run(host='0.0.0.0', port=5000)

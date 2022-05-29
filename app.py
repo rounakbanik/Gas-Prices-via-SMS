@@ -6,9 +6,10 @@ import json
 
 # Find your Account SID and Auth Token at twilio.com/console
 # and set the environment variables. See http://twil.io/secure
-account_sid = 'AC705c0140161dcf44f53e96e40fc492cc'
-auth_token = 'e3cb4c9dd7b1f2a80f26a3e24779ebd6'
-client = Client(account_sid, auth_token)
+
+#account_sid = 'AC705c0140161dcf44f53e96e40fc492cc'
+#auth_token = 'e3cb4c9dd7b1f2a80f26a3e24779ebd6'
+#client = Client(account_sid, auth_token)
 
 
 app = Flask(__name__)
@@ -19,31 +20,11 @@ queue = []
 def request_handler():
 	if request.method == 'POST':
 		print("Received a notification from the webhook!")
-		data = (request.json)
-		# if len(data['event']['activity'])==1:
-		# 	timestamp = data['createdAt']
-		# 	from_address = data['event']['activity'][0]['fromAddress']
-		# 	to_address = data['event']['activity'][0]['toAddress']
-		# 	blockNum =  data['event']['activity'][0]['blockNum']
-		# 	hash =  data['event']['activity'][0]['hash']
+		data = request.json
+		print("Payload: ", data)
 
-
-		# else:
-		# 	for i in range(len(data['event']['activity'])):
-		# 		timestamp = data['createdAt']
-		# 		from_address = data['event']['activity'][i]['fromAddress']
-		# 		to_address = data['event']['activity'][i]['toAddress']
-		# 		blockNum =  data['event']['activity'][i]['blockNum']
-		# 		hash =  data['event']['activity'][i]['hash']
-
-
-		print("DATA: ", data)
-
-
-		message = client.messages.create(body='Gas prices have dropped below 50 Gwei!' ,from_='+18149956820', to='+918439860325')
-
-		print(message.sid)
-
+		#message = client.messages.create(body='Gas prices have dropped below 50 Gwei!' ,from_='+18149956820', to='+918439860325')
+		#print(message.sid)
 
 	return ("Server is up!")
 
